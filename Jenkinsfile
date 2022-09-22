@@ -1,21 +1,14 @@
-pipeline {
-    agent {
-        docker {
-            image 'node:lts-bullseye-slim' 
-            args '-p 3000:3000' 
-        }
+node {
+    git branch: 'react-app', url:'https://github.com/namaliarahma/a428-cicd-labs'
+    docker.image("node:lts-bullseye-slim")
+    stage('Build') { 
+          // sh "chmod +x -R ./jenkins"
+          // sh './jenkins/scripts/deliver.sh' 
+             sh 'npm install' 
     }
-    stages {
-        stage('Build') { 
-            steps {
-                sh 'npm install' 
-            }
-        }
-        stage('Test') { 
-            steps {
+    stage('Test') { 
+           
                 sh "chmod +x -R ${env.WORKSPACE}"
                 sh './jenkins/scripts/test.sh' 
-            }
-        }
     }
 }
