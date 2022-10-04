@@ -21,6 +21,7 @@ node {
            docker.image("node:lts-bullseye-slim").inside{
                 sh './jenkins/scripts/deliver.sh'
 	        sh './jenkins/scripts/kill.sh'
+		sh 'sleep 60'
            }
     }
 }
