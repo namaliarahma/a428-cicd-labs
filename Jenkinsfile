@@ -12,11 +12,15 @@ node {
                 sh './jenkins/scripts/test.sh' 
            }
     }
+    stage('Manual Approval') { 
+           docker.image("node:lts-bullseye-slim").inside{
+                input message: 'Lanjutkan ke tahap Deploy? (Click "Proceed" to continue)'
+           }
+    }
     stage('Deploy') { 
            docker.image("node:lts-bullseye-slim").inside{
                 sh './jenkins/scripts/deliver.sh'
-	        input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './jenkins/scripts/kill.sh'
+	        sh './jenkins/scripts/kill.sh'
            }
     }
 }
