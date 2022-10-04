@@ -8,7 +8,7 @@ node {
     }
     stage('Test') { 
            docker.image("node:lts-bullseye-slim").inside{
-                sh 'chmod +x -R ${env.WORKSPACE}'
+                sh "chmod +x -R ${env.WORKSPACE}"
                 sh './jenkins/scripts/test.sh' 
            }
     }
