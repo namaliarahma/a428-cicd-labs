@@ -8,11 +8,11 @@ node {
     }
     stage('Test') { 
            docker.image("node:lts-bullseye-slim").inside{
-                sh "chmod +x -R ${env.WORKSPACE}"
+                sh 'chmod +x -R ${env.WORKSPACE}'
                 sh './jenkins/scripts/test.sh' 
            }
     }
-    stage('Deliver') { 
+    stage('Deploy') { 
            docker.image("node:lts-bullseye-slim").inside{
                 sh './jenkins/scripts/deliver.sh'
 	        input message: 'Finished using the web site? (Click "Proceed" to continue)'
